@@ -1,0 +1,74 @@
+import React, { useContext, useEffect, useState } from "react";
+const baseURL = "https://api.themoviedb.org/3";
+
+const apiKey = process.env.REACT_APP_API_KEY;
+
+export const trendingURL = `/trending/movie/day`;
+
+const searchURL = `/search/keyword`;
+
+const AppContext = React.createContext();
+const AppProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [movie, setMovie] = useState([]);
+  const [isError, setIsError] = useState({ show: "false", msg: "" });
+  const [query, setQuery] = useState("");
+  const [pageTitle, setPageTitle] = useState(null);
+  const [options, setOptions] = useState([]);
+
+  const getMovies = async (url, text) => {
+    try {
+      await fetch(url)
+        .then((response) => response.json())
+        .then((res) => (text ? setOptions(res.results) : setMovie(res.results)))
+        .catch((error) =>
+          setIsError({
+            show: true,
+            msg: Error,
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (query) {
+      getMovies(
+        `${baseURL + searchURL}?api_key=${apiKey}&query=${query}`,
+        "search"
+      );
+    } else if (!query && !pageTitle)
+      getMovies(`${baseURL + trendingURL}?api_key=${apiKey}`);
+  }, [query]);
+  console.log("ljasdfasdf", query, "afsdfasdf", pageTitle);
+  useEffect(() => {
+    if (pageTitle) {
+      getMovies(`${baseURL}/movie/${pageTitle}?api_key=${apiKey}`);
+    }
+  }, [pageTitle]);
+
+  return (
+    <AppContext.Provider
+      value={{
+        isLoading,
+        isError,
+        movie,
+        query,
+        setQuery,
+        setPageTitle,
+        pageTitle,
+        options,
+        setOptions,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+const useGlobalContext = () => {
+  return useContext(AppContext);
+};
+
+export { AppContext, AppProvider, useGlobalContext };

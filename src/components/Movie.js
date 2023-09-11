@@ -13,6 +13,7 @@ function Movie({ title }) {
     if (title && title.length > 0) {
       setPageTitle(title);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title]);
 
   return (

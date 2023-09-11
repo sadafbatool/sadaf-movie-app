@@ -16,7 +16,7 @@ function SingleMovie() {
   console.log(movie);
   const getMovies = async (url) => {
     try {
-      const res = await fetch(url)
+      await fetch(url)
         .then((response) => response.json())
         .then((res) => {
           setMovie(res);
@@ -30,6 +30,7 @@ function SingleMovie() {
 
   useEffect(() => {
     getMovies(`${baseURL}/movie/${id}?api_key=${apiKey}&i=${id}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

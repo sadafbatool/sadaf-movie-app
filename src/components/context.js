@@ -9,7 +9,6 @@ const searchURL = `/search/keyword`;
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [movie, setMovie] = useState([]);
   const [isError, setIsError] = useState({ show: "false", msg: "" });
   const [query, setQuery] = useState("");
@@ -51,7 +50,6 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        isLoading,
         isError,
         movie,
         query,

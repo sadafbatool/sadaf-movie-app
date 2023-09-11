@@ -26,20 +26,16 @@ const pages = [
 
 function Search() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
   const navigate = useNavigate();
-  const { query, setQuery, isError, options } = useGlobalContext();
+  const { query, setQuery, options } = useGlobalContext();
   const handleChange = (e, val) => {
     console.log("eeee", val);
     navigate(`/movie/${val?.id}`);

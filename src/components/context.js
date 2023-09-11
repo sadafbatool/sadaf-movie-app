@@ -39,6 +39,7 @@ const AppProvider = ({ children }) => {
       );
     } else if (!query && !pageTitle)
       getMovies(`${baseURL + trendingURL}?api_key=${apiKey}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {

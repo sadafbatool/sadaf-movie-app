@@ -20,7 +20,7 @@ const AppProvider = ({ children }) => {
       await fetch(url)
         .then((response) => response.json())
         .then((res) => (text ? setOptions(res.results) : setMovie(res.results)))
-        .catch((error) =>
+        .catch(() =>
           setIsError({
             show: true,
             msg: Error,
@@ -40,11 +40,12 @@ const AppProvider = ({ children }) => {
     } else if (!query && !pageTitle)
       getMovies(`${baseURL + trendingURL}?api_key=${apiKey}`);
   }, [query]);
-  console.log("ljasdfasdf", query, "afsdfasdf", pageTitle);
+
   useEffect(() => {
     if (pageTitle) {
       getMovies(`${baseURL}/movie/${pageTitle}?api_key=${apiKey}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageTitle]);
 
   return (

@@ -13,7 +13,7 @@ function SingleMovie() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [movie, setMovie] = useState({});
-  console.log(movie);
+
   const getMovies = async (url) => {
     try {
       await fetch(url)

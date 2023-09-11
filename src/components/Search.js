@@ -37,7 +37,6 @@ function Search() {
   const navigate = useNavigate();
   const { query, setQuery, options } = useGlobalContext();
   const handleChange = (e, val) => {
-    console.log("eeee", val);
     navigate(`/movie/${val?.id}`);
   };
   return (
